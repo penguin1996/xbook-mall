@@ -3,9 +3,9 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
     druid:
-      url: jdbc:mysql://127.0.0.1:3306/xbook?allowMultiQueries=true&useUnicode=true&characterEncoding=utf-8&useSSL=false&autoReconnect=true&serverTimezone=Asia/Shanghai
+      url: jdbc:mysql://192.168.56.10:3306/xbook?allowMultiQueries=true&useUnicode=true&characterEncoding=utf-8&useSSL=false&autoReconnect=true&serverTimezone=Asia/Shanghai
       username: root
-      password: 123456
+      password: root
       initial-size: 10
       max-active: 100
       min-idle: 10
@@ -38,7 +38,7 @@ dubbo:
       name: dubbo
       port: 20882
     registry:
-      address: zookeeper://127.0.0.1:2181
+      address: zookeeper://192.168.56.10:2181
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

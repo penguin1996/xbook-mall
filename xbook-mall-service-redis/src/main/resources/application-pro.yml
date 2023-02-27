@@ -6,10 +6,10 @@ dubbo:
       name: dubbo
       port: 20881
     registry:
-      address: zookeeper://127.0.0.1:2181
+      address: zookeeper://192.168.56.10:2181
 # redis
 redis:
-    host: 127.0.0.1
+    host: 192.168.56.10
     port: 6379
     password:
     timeout: 100

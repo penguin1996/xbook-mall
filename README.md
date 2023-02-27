@@ -53,13 +53,13 @@ xbook-mall -- 父项目，依赖管理
 
 | 服务名称|Dubbo服务端口  |Rest服务端口| 完成情况|
 |:---------------:|:---------------:|:---------------:|:---------------:|
-| xbook-mall-service-cart      | 127.0.0.1:20884     |-             |OK |
-| xbook-mall-service-order     | 127.0.0.1:20885     |-             |OK |
-| xbook-mall-service-product   | 127.0.0.1:20883     |-             |OK |
-| xbook-mall-service-redis     | 127.0.0.1:20881    |-              |OK |
-| xbook-mall-service-user      | 127.0.0.1:20882    |-              |OK |
+| xbook-mall-service-cart      | 192.168.56.10:20884     |-             |OK |
+| xbook-mall-service-order     | 192.168.56.10:20885     |-             |OK |
+| xbook-mall-service-product   | 192.168.56.10:20883     |-             |OK |
+| xbook-mall-service-redis     | 192.168.56.10:20881    |-              |OK |
+| xbook-mall-service-user      | 192.168.56.10:20882    |-              |OK |
 | xbook-mall-service-payment   | -                  |-              |TODO|
-| xbook-mall-web               | -                  |127.0.0.1:8090 |OK |
+| xbook-mall-web               | -                  |192.168.56.10:8090 |OK |
 
 ## 启动
 1. `git clone git@github.com:AnthonyZero/xbook-mall.git`
