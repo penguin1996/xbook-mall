@@ -7,9 +7,7 @@ import com.xbook.common.core.Result;
 import com.xbook.entity.product.ProductDetail;
 import com.xbook.product.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/product")
@@ -49,5 +47,14 @@ public class ProductController {
     public Result<ProductDetail> detail(Integer productId){
         ProductDetail productDetail = productService.queryProductDetail(productId);
         return Result.success(productDetail);
+    }
+
+    /**
+     * 扣减库存
+     * @return
+     */
+    @GetMapping("/deductStock/{productId}")
+    public String deductStock(@PathVariable("productId") Integer productId){
+        return productService.deductStock(productId);
     }
 }

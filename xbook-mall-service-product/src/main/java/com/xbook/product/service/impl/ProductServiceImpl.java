@@ -2,6 +2,7 @@ package com.xbook.product.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.api.R;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
@@ -11,12 +12,15 @@ import com.xbook.common.enums.CodeMsgEnum;
 import com.xbook.common.enums.ProductStatusEnum;
 import com.xbook.dao.product.CategoryMapper;
 import com.xbook.dao.product.ProductMapper;
+import com.xbook.dao.stock.StockMapper;
 import com.xbook.entity.product.Category;
 import com.xbook.entity.product.Product;
 import com.xbook.entity.product.ProductData;
 import com.xbook.entity.product.ProductDetail;
+import com.xbook.entity.stock.Stock;
 import com.xbook.product.service.ProductService;
 import com.xbook.product.service.exception.ProductException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,14 +28,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.locks.ReentrantLock;
 
 @Service(version = SysConstant.XBOOK_MALL_PRODUCT_VERSION)
+@Slf4j
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private CategoryMapper categoryMapper;
     @Autowired
     private ProductMapper productMapper;
+    @Autowired
+    StockMapper stockMapper;
 
     @Override
     public PageInfo pageProduct(String keyword, Integer categoryId, String orderBy, int pageNum, int pageSize) {
@@ -152,5 +160,36 @@ public class ProductServiceImpl implements ProductService {
         detail.setCreateTime(Optional.ofNullable(product.getCreateTime()).map(u -> u.format(DateTimeFormatter.ofPattern(SysConstant.DATE_TIME_PATTERN))).orElse(""));
         detail.setUpdateTime(Optional.ofNullable(product.getUpdateTime()).map(u -> u.format(DateTimeFormatter.ofPattern(SysConstant.DATE_TIME_PATTERN))).orElse(""));
         return detail;
+    }
+
+    private final ReentrantLock reentrantLock = new ReentrantLock(true);
+
+    @Override
+    public /*synchronized*/ String deductStock(Integer productId) {
+        log.info("扣减库存开始......");
+/*
+        if (lock.lock()) {
+*/
+            try {
+                reentrantLock.lock();
+                Stock stock = stockMapper.getStockByProductId(productId);
+                log.info("当前库存量:" + stock.getStockNum());
+                //扣减库存
+                if (stock.getStockNum() > 0) {
+                    //默认扣减1
+                    stock.setStockNum(stock.getStockNum() - 1);
+                    stockMapper.updateById(stock);
+                } else {
+                    log.info("扣减库存失败,无库存可用......");
+                    return "扣减库存失败";
+                }
+            } finally {
+                // 避免出现异常无法释放锁
+                reentrantLock.unlock();
+            }
+/*        }else {
+            log.info("锁别其他线程占用呀！");
+        }*/
+        return "ok";
     }
 }

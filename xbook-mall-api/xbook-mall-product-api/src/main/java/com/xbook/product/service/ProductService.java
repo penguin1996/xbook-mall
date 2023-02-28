@@ -33,4 +33,7 @@ public interface ProductService {
      * @return
      */
     List<Integer> selectCategoryChildrenById(Integer categoryId);
+
+
+    String deductStock(Integer productId);
 }

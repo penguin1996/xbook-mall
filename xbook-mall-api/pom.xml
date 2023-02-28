@@ -20,5 +20,13 @@
         <module>xbook-mall-cart-api</module>
         <module>xbook-mall-order-api</module>
     </modules>
+    <dependencies>
+        <dependency>
+            <groupId>com.xbook</groupId>
+            <artifactId>xbook-mall-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
 </project>
