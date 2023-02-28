@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/order")
 @Slf4j
-public class OrderController extends BaseControllerTest {
+public class OrderController extends BaseController {
 
     @Reference(version = SysConstant.XBOOK_MALL_ORDER_VERSION, retries = 0, timeout = 1800000)
     private OrderService orderService;

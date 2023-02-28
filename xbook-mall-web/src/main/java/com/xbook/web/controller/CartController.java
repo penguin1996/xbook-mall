@@ -5,7 +5,9 @@ import com.xbook.cart.service.CartService;
 import com.xbook.common.constant.SysConstant;
 import com.xbook.common.core.Result;
 import com.xbook.common.enums.CartCheckEnum;
+import com.xbook.common.redis.key.UserKey;
 import com.xbook.entity.cart.CartVo;
+import com.xbook.redis.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +22,9 @@ public class CartController extends BaseController {
     @Reference(version = SysConstant.XBOOK_MALL_CART_VERSION, retries = 0, timeout = 1800000)
     private CartService cartService;
 
+    @Reference(version = SysConstant.XBOOK_MALL_REDIS_VERSION, retries = 0, timeout = 1800000)
+    private RedisService redisService;
+
     /**
      * 获取购物车商品购买数量
      * @param request
@@ -29,6 +34,15 @@ public class CartController extends BaseController {
     public Result getCartCount(HttpServletRequest request) {
         Integer Count = cartService.getCartCount(getCurrentUserId(request));
         return Result.success(Count);
+    }
+
+    /**
+     * 获取购物车商品购买数量
+     * @return
+     */
+    @RequestMapping("/test")
+    public Result test() {
+        return Result.success(redisService.get(UserKey.loginUser,"c0bd4c287a1a4465a80eb339916e19ef"));
     }
 
     /**

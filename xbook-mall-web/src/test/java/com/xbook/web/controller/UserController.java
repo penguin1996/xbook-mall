@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/user")
 @RestController
 @Slf4j
-public class UserController extends BaseControllerTest {
+public class UserController extends BaseController {
 
     @Reference(version = SysConstant.XBOOK_MALL_USER_VERSION, retries = 0, timeout = 1800000)
     private UserService userService;

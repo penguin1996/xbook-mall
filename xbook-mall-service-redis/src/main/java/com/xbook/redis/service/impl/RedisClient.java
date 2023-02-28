@@ -4,11 +4,13 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.xbook.common.constant.SysConstant;
 import com.xbook.common.redis.KeyPrefix;
 import com.xbook.redis.service.RedisService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 @Service(version = SysConstant.XBOOK_MALL_REDIS_VERSION)
+@Slf4j
 public class RedisClient implements RedisService {
 
     @Autowired
@@ -22,6 +24,7 @@ public class RedisClient implements RedisService {
             // 生成真正的key
             String realKey = prefix.getPrefix() + key;
             String str = jedis.get(realKey);
+            log.info("realKey:{},value:{}",realKey,str);
             return str;
         } finally {
             returnToPool(jedis);

@@ -20,7 +20,8 @@ public class CorsConfig {
         // 是否发送cookie
         config.setAllowCredentials(true);
         // 允许的网站域名，全允许则设为 *
-        config.addAllowedOrigin("*");
+        //config.addAllowedOrigin("*");
+        config.addAllowedOriginPattern("*");
         // 允许 HEADER 或 METHOD ， * 为全部
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");

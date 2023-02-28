@@ -20,7 +20,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/shipping")
 @Slf4j
-public class ShippingController extends BaseControllerTest {
+public class ShippingController extends BaseController {
 
     @Reference(version = SysConstant.XBOOK_MALL_USER_VERSION, retries = 0, timeout = 1800000)
     private AddressService addressService;
