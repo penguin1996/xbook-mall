@@ -2,7 +2,6 @@ package com.xbook.user.service.impl;
 
 import com.xbook.dao.user.ShippingMapper;
 import com.xbook.entity.user.Shipping;
-import com.xbook.user.service.AddressService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
